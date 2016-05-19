@@ -84,36 +84,41 @@ namespace SimpleTime
 
         private void Main_port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            //
+        
             SerialPort port = (SerialPort)sender;
             try {
+ 
                 if (this.Application.ActiveSheet != null) {
+
                     Excel.Worksheet activeWorkSheet = (Excel.Worksheet)Application.ActiveSheet;
 
-                    //Variabler til bruk
-                    string input = port.ReadLine().Trim();
-                    string s = "";
+                        //Variabler til bruk
+                        string input = port.ReadLine().Trim();
+                        string s = "";
 
-                    //Hent navn
-                    foreach (DictionaryEntry entry in table) {
-                        if (input == (string)entry.Key) {
-                            s = (string)entry.Value;
+                        //Hent navn
+                        foreach (DictionaryEntry entry in table)
+                        {
+                            if (input == (string)entry.Key)
+                            {
+                                s = (string)entry.Value;
+                            }
                         }
+
+                        //Navn
+                        Excel.Range NyNavneRad = activeWorkSheet.get_Range("A1");
+                        NyNavneRad.Insert(Excel.XlInsertShiftDirection.xlShiftDown);
+                        Excel.Range NavneRad2 = activeWorkSheet.get_Range("A1");
+                        NavneRad2.Value2 = s;//Navn;
+
+                        //Dato
+                        Excel.Range newDatoRow = activeWorkSheet.get_Range("B1");
+                        newDatoRow.Insert(Excel.XlInsertShiftDirection.xlShiftDown);
+                        Excel.Range DatoRange2 = activeWorkSheet.get_Range("B1");
+                        DatoRange2.Font.Bold = true;
+                        DatoRange2.Value2 = DateTime.Now.ToString("dd:MM:yy");//Dato;
                     }
-
-                    //Navn
-                    
-                    Excel.Range NyNavneRad = activeWorkSheet.get_Range("A1");
-                    NyNavneRad.Insert(Excel.XlInsertShiftDirection.xlShiftDown);
-                    Excel.Range NavneRad2 = activeWorkSheet.get_Range("A1");
-                    NavneRad2.Value2 = s;//Navn;
-
-                    //Dato
-                    Excel.Range newDatoRow = activeWorkSheet.get_Range("B1");
-                    newDatoRow.Insert(Excel.XlInsertShiftDirection.xlShiftDown);
-                    Excel.Range DatoRange2 = activeWorkSheet.get_Range("B1");
-                    DatoRange2.Value2 = DateTime.Now.ToString("mm:dd:hh");//Dato;
-                }
+                
             } catch (COMException comex) { }
         }
 
