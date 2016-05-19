@@ -7,3 +7,6 @@ c:\users\hooligandesign\documents\visual studio 2015\Projects\SerialReader\Seria
 c:\users\hooligandesign\documents\visual studio 2015\Projects\SerialReader\SerialReader\obj\Debug\SerialReader.csproj.GenerateResource.Cache
 c:\users\hooligandesign\documents\visual studio 2015\Projects\SerialReader\SerialReader\obj\Debug\SerialReader.exe
 c:\users\hooligandesign\documents\visual studio 2015\Projects\SerialReader\SerialReader\obj\Debug\SerialReader.pdb
+C:\Users\HooliganDesign\Desktop\EasyTime\SerialReader\SerialReader\bin\Debug\SerialReader.exe.config
+C:\Users\HooliganDesign\Desktop\EasyTime\SerialReader\SerialReader\obj\Debug\SerialReader.exe
+C:\Users\HooliganDesign\Desktop\EasyTime\SerialReader\SerialReader\obj\Debug\SerialReader.pdb

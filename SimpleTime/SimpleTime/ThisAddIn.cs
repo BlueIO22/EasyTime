@@ -6,23 +6,43 @@ using System.Xml.Linq;
 using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
+using System.IO;
+using System.IO.Ports;
 
 namespace SimpleTime
 {
     public partial class SimpleTime_Main
     {
+        //EasyTime
+        //Utvikler: Marius Sørenes (kan endres via kontrakt)
+        //Copyright (C) Marius Sørenes (kan endres via kontrakt)
+        //Version: 1.0
+
+        #region objects
+        SerialPort main_port;
+        #endregion 
+
+        #region start_methods
+
         /// <summary>
-        /// Metode for startfunksjoner
+        /// Metode for startfunksjoner av programmet
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            
+            //Startsfase og algoritmer
+
         }
 
+        /// <summary>
+        /// Metode for sluttfunksjon av programmet
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
+            //Avsluttningsfase og algoritmer
         }
 
         #region VSTO generated code
@@ -36,7 +56,9 @@ namespace SimpleTime
             this.Startup += new System.EventHandler(ThisAddIn_Startup);
             this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
         }
-        
+
+        #endregion
+
         #endregion
     }
 }
