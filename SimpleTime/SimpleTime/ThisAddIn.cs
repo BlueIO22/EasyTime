@@ -26,9 +26,14 @@ namespace SimpleTime
         #region methods
         public List<string> hentPorter() {
             List<string> returnList = new List<string>();
+            //Legger til sjekk for feil
             try {
                 try {
-
+                    //Henter alle mulige porter(com) på lokal datamaskinen. 
+                    string[] ports = SerialPort.GetPortNames();
+                    for (int i = 0; i < ports.Length; i++) {
+                        returnList.Add(ports[0]);
+                    }
                 } catch (Exception ek) {
 
                 }
