@@ -1,0 +1,9 @@
+c:\users\hooligandesign\documents\visual studio 2015\Projects\SerialReader\SerialReader\bin\Debug\SerialReader.exe.config
+c:\users\hooligandesign\documents\visual studio 2015\Projects\SerialReader\SerialReader\bin\Debug\SerialReader.exe
+c:\users\hooligandesign\documents\visual studio 2015\Projects\SerialReader\SerialReader\bin\Debug\SerialReader.pdb
+c:\users\hooligandesign\documents\visual studio 2015\Projects\SerialReader\SerialReader\obj\Debug\SerialReader.csprojResolveAssemblyReference.cache
+c:\users\hooligandesign\documents\visual studio 2015\Projects\SerialReader\SerialReader\obj\Debug\SerialReader.Form1.resources
+c:\users\hooligandesign\documents\visual studio 2015\Projects\SerialReader\SerialReader\obj\Debug\SerialReader.Properties.Resources.resources
+c:\users\hooligandesign\documents\visual studio 2015\Projects\SerialReader\SerialReader\obj\Debug\SerialReader.csproj.GenerateResource.Cache
+c:\users\hooligandesign\documents\visual studio 2015\Projects\SerialReader\SerialReader\obj\Debug\SerialReader.exe
+c:\users\hooligandesign\documents\visual studio 2015\Projects\SerialReader\SerialReader\obj\Debug\SerialReader.pdb
