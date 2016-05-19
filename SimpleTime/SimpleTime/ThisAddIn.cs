@@ -8,6 +8,7 @@ using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
 using System.IO;
 using System.IO.Ports;
+using System.Runtime.InteropServices;
 
 namespace SimpleTime
 {
@@ -20,6 +21,22 @@ namespace SimpleTime
 
         #region objects
         SerialPort main_port;
+        #endregion
+
+        #region methods
+        public List<string> hentPorter() {
+            List<string> returnList = new List<string>();
+            try {
+                try {
+
+                } catch (Exception ek) {
+
+                }
+            } catch (COMException ek) {
+
+            }
+            return returnList;
+        }
         #endregion 
 
         #region start_methods
