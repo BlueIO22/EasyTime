@@ -152,9 +152,18 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="EasyTime.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EasyTime.Designer.cs">
+      <DependentUpon>EasyTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="EasyTime.resx">
+      <DependentUpon>EasyTime.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
