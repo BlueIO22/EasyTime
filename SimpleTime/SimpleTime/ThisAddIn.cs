@@ -53,6 +53,33 @@ namespace SimpleTime
             return returnList;
         }
 
+
+        /// <summary>
+        /// DEMO FUNKSJON, SKAL SLETTES ETTER BRUK. 
+        /// Metode for å legge til informajon, for testing
+        /// av utforming og design
+        /// </summary>
+        public void leggTilInformasjon()
+        {
+
+            Excel.Worksheet activeWorkSheet = (Excel.Worksheet)Application.ActiveSheet;
+
+
+            //Navn
+            Excel.Range NyNavneRad = activeWorkSheet.get_Range("A1");
+            NyNavneRad.Insert(Excel.XlInsertShiftDirection.xlShiftDown);
+            Excel.Range NavneRad2 = activeWorkSheet.get_Range("A1");
+            NavneRad2.Value2 = s;//Navn;
+
+            //Dato
+            Excel.Range newDatoRow = activeWorkSheet.get_Range("B1");
+            newDatoRow.Insert(Excel.XlInsertShiftDirection.xlShiftDown);
+            Excel.Range DatoRange2 = activeWorkSheet.get_Range("B1");
+            DatoRange2.Font.Size = 18;
+            DatoRange2.Font.Bold = true;
+            DatoRange2.Value2 = DateTime.Now.ToString("dd:MM:yy");//Dato;
+
+        }
         #endregion 
 
         #region start_methods
