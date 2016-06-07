@@ -3,31 +3,33 @@ var sessions = require('express-session');
 var cookieParser = require('Cookie-Parser');
 var morgan = require('morgan');	 
 var bodyParser = require('Body-Parser');
-
+var path = require('path');
 var app = express();
 var port = process.env.PORT || 3000;
-
+var index = require('./routes/index.js');
+ 
 
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser());
-app.use(bodyParser.json);
+ app.use(bodyParser.urlencoded({extended: true}));
 app.use(sessions({
 	secret: 'dlwadwikpaipPWDLÆaddw',
 	saveUnitialized: true,
 	resave: true
 }));
 
+ 
+app.set('view engine', 'hjs');
+app.set('/', index);
 
-
-app.use('/', function(req, res){
-	res.send('hello world!');	
-	console.log(req.cookies);
-	console.log(req.session);	
+app.get('/', function(req, res){
+	res.render('index');
 });
-
-module.export = app;
 
 app.listen(port);
 
 console.log('Server is running!');
+
+module.export = app;
+

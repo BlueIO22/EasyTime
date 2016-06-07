@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>{{ title }}</h1>
+    <p>Welcome to {{ title }}</p>
+    <p>Bedrift: {{company}}</p>
+    
+    <b>
+      <label id="status">Logg inn her: </label><br>
+    <input type="text" id="username" placeholder="Brukernavn..." />
+    <input type="password" id="password" placeholder="Passord..."/>
+    <button id="loginButton">Login</button>
+  </body>
+  
+  <!-- JQuery og Bootstrap.js skal her: -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  
+  <!-- Egne script skal her, nb prøv og sett i egne filer. -->
+  <script>
+    $('#username').keyup(function(event){
+    
+      //Enter keypress
+      if(event.keyCode == 13){
+          login();     
+      }
+      
+    });
+    
+    $('#password').keyup(function(event){
+      if(event.keyCode==13){
+        login();
+      }
+    });
+    
+    function login(){
+      //Kjør ajax req 
+        $.ajax({
+          url: '/tryLogin',
+          type: 'POST',
+          dataType: 'json',
+          data: JSON.stringify({username: $('#username').val(), password: $('#password').val() }),
+          contentType: "application/json; charset=utf-8",
+          success: function(data){
+              console.log(data.response);
+              $('#status').html(data.response);
+              if(data.response == 'OK'){
+                document.location.href = data.url;
+                
+              }
+              
+          }
+          
+        });
+        $('#password').val('');
+        $('#username').val('');   
+      
+    }
+  </script>
+</html>
