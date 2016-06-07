@@ -9,7 +9,6 @@
     <!-- Her kommer navbaren -->
     <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
@@ -20,7 +19,6 @@
       <a class="navbar-brand" href="#">{{name}}</a>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         {{#links}}
@@ -31,20 +29,101 @@
       <ul class="nav navbar-nav navbar-right">
       
            <li><button id="logout" class="btn btn-warning navbar-btn">Logg ut</button></li> 
-            
+              
           </ul>
         
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>
 
-    <h1>{{ title }}</h1>
-    <p>Welcome to {{ title }}</p>
-    <p>Bedrift: {{company}}</p>
-    
-    <b>
+<br>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="container-fluid">
+          <div class="panel-header"><button style="
+            right: 16px;
+            border-style:none;
+            margin: 0;
+            position: absolute;
+            "class="btn btn-default glyphicon glyphicon-option-horizontal"></button><h4>Informasjon</h4></div>
+            <div class="panel-body">
+              <p>Velkommen til <label class="label label-success">{{ title }}</label></p>
+              <p>Versjon: <label class="label label-primary">{{version}}</label></p>
+              <p>Bedrift: <label class="label label-info">{{bedrift}}</label></p>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-5">
+     <div class="panel panel-default">
+        <div class="container-fluid">
+            <div class="panel-header"><button style="
+            right: 16px;
+            border-style:none;
+            margin: 0;
+            position: absolute;
+            "class="btn btn-default glyphicon glyphicon-option-horizontal"></button><h4>Statistikk</h4></div>
+            <div class="panel-body"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+     <div class="panel panel-default">
+        <div class="container-fluid">
+            <div class="panel-header"><button style="
+            right: 16px;
+            border-style:none;
+            margin: 0;
+            position: absolute;
+            "class="btn btn-default glyphicon glyphicon-option-horizontal"></button><h4>Brukere</h4></div>
+            <div class="panel-body">
+        
+            <ul class="list-group">
+               {{#brukere}}
+               <div id="dropdown{{id}}" class="dropdown">
+                <li id="listitem{{id}}" class="list-group-item clearfix">{{name}}  &nbsp; <span class="pull-right">
+
+                  <button id="person{{id}}" style="font-size: x-small ; height:25px;" class="btn btn-default dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Endre <span class="caret"></span></button>
+
+                    
+                </span></li>
+                
+                <ul id="dropdown" class="dropdown-menu">
+                  <li><a href="">Endre brukernavn</a></li>
+                  <li><a href="">Status</a></li>
+                  <li role="seperator" class="divider"></li>
+                  <li><a href="">Slett bruker</a></li>
+                </ul>
+                {{/brukere}}
+
+                
+              </div>
+            </ul>
+
+          </div>
+        
+        </div>
+      </div>
+    </div>
      
   </body>
-  <script></script>
+  <!-- JQuery og Bootstrap -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript">
+        
+        
+        {{#brukere}}
+          $('#person{{id}}').click(function () {
+               $('#dropdown{{id}}').dropdown("toggle");
+          });
+        {{/brukere}}
+
+         
+
+  </script>
   </html>

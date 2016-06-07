@@ -35,6 +35,12 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+function readJSONFile(filepath){
+  var file = fs.readFileSync(filepath, 'utf-8');
+  return JSON.parse(file);
+
+ }
+
 // error handlers
 
 // development error handler
@@ -61,3 +67,4 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+ 

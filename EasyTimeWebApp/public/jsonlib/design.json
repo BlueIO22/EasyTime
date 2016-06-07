@@ -1,0 +1,35 @@
+{
+	"program":{
+		
+		"name": "EasyTime",
+		"version": "BETA 1.0",
+		"developer": "Marius Sørenes",
+
+		
+			"links":[{
+				"name": "Brukere",
+				"url": "/brukere"
+			}, {
+				"name":"Instillinger",
+				"url": "/instillinger"
+			}],
+		
+		"title": "EasyTime",
+		"bedrift": "Marinaden",
+		"brukere": [{
+			"name": "Anita Hellen",
+			"id": "1"
+		}, {
+			"name": "John Peder",
+			"id": "2"
+		},{
+			"name": "Arne Jensen",
+			"id": "3"
+		}, {
+			"name": "Kristian Peder",
+			"id": "4"
+		}]
+	 
+	 }
+
+}

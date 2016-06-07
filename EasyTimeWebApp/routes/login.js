@@ -4,6 +4,7 @@ var bodyParser = require('Body-Parser');
 var mysql = require('mysql');
 var cookieParser = require('Cookie-Parser');
 var router = express.Router();
+var fs = require('fs');
 var app = express();
 
 var connection = mysql.createConnection({
@@ -35,8 +36,16 @@ router.get('/redirects', function(req, res){
   }
 });
 
+function readJSONFile(filepath){
+  var file = fs.readFileSync(filepath, 'utf-8');
+  return JSON.parse(file);
+
+ }
+
+
 router.get('/login', function(req, res, next) {
-  res.render('login', { title: 'Login | EasyTime', company: 'Marinaden' });
+  var obj = readJSONFile('public/jsonlib/design.json');
+  res.render('login', obj.program);
 });
 
 
@@ -53,11 +62,11 @@ router.post('/tryLogin', function(req, res){
       console.log('hello');
         var id = rows[0].id;
             username = obj.username;
-            res.send({response: 'OK', url: 'http://localhost:3000/index'}); 
+            res.send({response: 'Logget inn', url: 'http://localhost:3000/index', std: 'OK'}); 
             session.uniqueID = id;
             console.log(session.uniqueID);
     }else{
-       res.send({response: 'Brukernavn eller passord er feil.'});
+       res.send({response: 'Brukernavn eller passord er feil.', std: 'BAD'});
     }
     
   });
