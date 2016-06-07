@@ -2,6 +2,7 @@ var express = require('express');
 var sessions = require('express-session');
 var bodyParser = require('Body-Parser');
 var mysql = require('mysql');
+var cookieParser = require('Cookie-Parser');
 var router = express.Router();
 var app = express();
 
@@ -17,9 +18,10 @@ connection.query('USE users');
 
 var session; 
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: false
 }));
 
 
@@ -34,7 +36,7 @@ router.get('/redirects', function(req, res){
 });
 
 router.get('/login', function(req, res, next) {
-  res.render('login', { title: 'Index | EasyTime', company: 'Marinaden' });
+  res.render('login', { title: 'Login | EasyTime', company: 'Marinaden' });
 });
 
 
@@ -51,7 +53,7 @@ router.post('/tryLogin', function(req, res){
       console.log('hello');
         var id = rows[0].id;
             username = obj.username;
-            res.send({response: 'OK', url: 'http://localhost:3000/redirects'}); 
+            res.send({response: 'OK', url: 'http://localhost:3000/index'}); 
             session.uniqueID = id;
             console.log(session.uniqueID);
     }else{
