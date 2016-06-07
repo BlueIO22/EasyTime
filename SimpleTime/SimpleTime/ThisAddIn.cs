@@ -69,7 +69,7 @@ namespace SimpleTime
             Excel.Range NyNavneRad = activeWorkSheet.get_Range("A1");
             NyNavneRad.Insert(Excel.XlInsertShiftDirection.xlShiftDown);
             Excel.Range NavneRad2 = activeWorkSheet.get_Range("A1");
-            NavneRad2.Value2 = s;//Navn;
+            NavneRad2.Value2 = "Hello World";//Navn;
 
             //Dato
             Excel.Range newDatoRow = activeWorkSheet.get_Range("B1");
