@@ -83,20 +83,25 @@
         
             <ul class="list-group">
                {{#brukere}}
+
                <div id="dropdown{{id}}" class="dropdown">
                 <li id="listitem{{id}}" class="list-group-item clearfix">{{name}}  &nbsp; <span class="pull-right">
 
-                  <button id="person{{id}}" style="font-size: x-small ; height:25px;" class="btn btn-default dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Endre <span class="caret"></span></button>
-
-                    
-                </span></li>
-                
-                <ul id="dropdown" class="dropdown-menu">
+<ul id="dropdownlist{{id}}" class="dropdown-menu">
                   <li><a href="">Endre brukernavn</a></li>
                   <li><a href="">Status</a></li>
                   <li role="seperator" class="divider"></li>
                   <li><a href="">Slett bruker</a></li>
                 </ul>
+                  <button id="person{{id}}" style="font-size: x-small ; height:25px;" class="btn btn-default dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Endre <span class="caret"></span></button>
+
+                    
+                </span>
+
+                
+              </li>
+                
+                
                 {{/brukere}}
 
                 
@@ -119,11 +124,12 @@
         
         {{#brukere}}
           $('#person{{id}}').click(function () {
-               $('#dropdown{{id}}').dropdown("toggle");
+            console.log('hello{{id}}');
+            $('#dropdownlist{{id}}').closest(".dropdown-menu").prev().dropdown("toggle");
           });
         {{/brukere}}
 
-         
+        
 
   </script>
   </html>
