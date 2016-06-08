@@ -41,13 +41,13 @@
     <div class="col-md-3">
       <div class="panel panel-default">
         <div class="container-fluid">
-          <div class="panel-header"><button style="
+          <div class="panel-header"><button data-toggle="collapse" data-target="#panelinfo" id="infobutton" style="
             right: 16px;
             border-style:none;
             margin: 0;
             position: absolute;
             "class="btn btn-default glyphicon glyphicon-option-horizontal"></button><h4>Informasjon</h4></div>
-            <div class="panel-body">
+            <div class="panel-body panel-collapse collapse in"  id="panelinfo">
               <p>Velkommen til <label class="label label-success">{{ title }}</label></p>
               <p>Versjon: <label class="label label-primary">{{version}}</label></p>
               <p>Bedrift: <label class="label label-info">{{bedrift}}</label></p>
@@ -57,29 +57,84 @@
     </div>
 
     <div class="col-md-5">
-     <div class="panel panel-default">
+     <div  class="panel panel-default">
         <div class="container-fluid">
-            <div class="panel-header"><button style="
+            <div class="panel-header"><button data-toggle="collapse" data-target="#panelstatistikk" style="
             right: 16px;
             border-style:none;
             margin: 0;
             position: absolute;
-            "class="btn btn-default glyphicon glyphicon-option-horizontal"></button><h4>Statistikk</h4></div>
-            <div class="panel-body"></div>
-        </div>
+            "class="btn btn-default glyphicon glyphicon-option-horizontal"></button><h4>Aktivitet</h4></div>
+            <div class="panel-body panel-collapse collapse in " id="panelstatistikk">
+
+              <div class="col-md-3">
+                <a href="" class="thumbnail">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Microsoft_Excel_2013_logo.svg/110px-Microsoft_Excel_2013_logo.svg.png" />
+                </a>
+
+              </div>
+
+              <div class="col-md-2"><label class="label label-info">Excel er koplet til databasen og kjører</label><br><label class="label label-success">Online</label></div>
+
+              <br><br><br>
+
+             
+                <h4>Siste aktivitet</h4>
+               
+                <table class="table table-striped">
+                   <tr>
+                        <td>
+                          Bruker
+                        </td> 
+                        <td>
+                          Sist inlogget
+                        </td>
+                        <td>
+                          Sist utlogget
+                        </td>
+                        <td>
+                          Sist aktiv
+                        </td>
+                        <td>
+                          Arbeidstimer totalt(idag)
+                        </td>
+                    </tr>
+
+                    {{#brukere}}
+                       <tr> <td>
+                          {{name}}
+                        </td>
+                         <td>
+                          {{sistsjekketinn}}
+                        </td>
+                        </td>
+                        <td>
+                          {{sistsjekketut}}
+                        </td>
+                        <td>
+                          {{sistaktiv}}
+                        </td>
+                        <td>
+                          {{arbeidstimer}}
+                        </td>
+                    {{/brukere}} 
+                </table>
+              
+            </div>
+         </div>
       </div>
     </div>
 
     <div class="col-md-4">
-     <div class="panel panel-default">
+     <div class="panel panel-default ">
         <div class="container-fluid">
             <div class="panel-header"><button style="
             right: 16px;
             border-style:none;
             margin: 0;
             position: absolute;
-            "class="btn btn-default glyphicon glyphicon-option-horizontal"></button><h4>Brukere</h4></div>
-            <div class="panel-body">
+            "class="btn btn-default glyphicon glyphicon-option-horizontal" data-toggle="collapse" data-target="#panelbrukere"></button><h4>Brukere</h4></div>
+            <div id="panelbrukere" class="panel-body panel-collapse collapse in ">
         
             <ul class="list-group">
                {{#brukere}}
@@ -87,13 +142,13 @@
                <div id="dropdown{{id}}" class="dropdown">
                 <li id="listitem{{id}}" class="list-group-item clearfix">{{name}}  &nbsp; <span class="pull-right">
 
-<ul id="dropdownlist{{id}}" class="dropdown-menu">
-                  <li><a href="">Endre brukernavn</a></li>
+          <ul id="dropdownlist{{id}}" class="dropdown-menu">
+                  <li><a href="" data-toggle="modal" data-target="#modaluser{{id}}">Rediger bruker</a></li>
                   <li><a href="">Status</a></li>
                   <li role="seperator" class="divider"></li>
                   <li><a href="">Slett bruker</a></li>
                 </ul>
-                  <button id="person{{id}}" style="font-size: x-small ; height:25px;" class="btn btn-default dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Endre <span class="caret"></span></button>
+                  <button id="person{{id}}" style="font-size: x-small ; height:25px;" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Endre <span class="caret"></span></button>
 
                     
                 </span>
@@ -114,6 +169,29 @@
       </div>
     </div>
      
+
+    <!-- modals:: -->
+    {{#brukere}}
+    <div class="modal fade" id="modaluser{{id}}" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">{{title}} | {{bedrift}}</h4>
+          </div>
+          <div class="modal-body">
+            <p>Bruker: {{name}}&hellip;</p>
+            <input type="text" class="form-control" placeholder="Navn.." id="brukerNavn"/>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+            <button type="button" class="btn btn-primary">Lagre endringer</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    {{/brukere}}
   </body>
   <!-- JQuery og Bootstrap -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -127,9 +205,15 @@
             console.log('hello{{id}}');
             $('#dropdownlist{{id}}').closest(".dropdown-menu").prev().dropdown("toggle");
           });
+
+           
         {{/brukere}}
 
-        
+
+
+       
+
+
 
   </script>
   </html>

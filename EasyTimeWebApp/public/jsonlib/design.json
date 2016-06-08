@@ -18,16 +18,32 @@
 		"bedrift": "Marinaden",
 		"brukere": [{
 			"name": "Anita Hellen",
-			"id": "1"
+			"id": "1",
+			"sistsjekketinn": "12:32",
+			"sistsjekketut": "14:40",
+			"sistaktiv": "14:40",
+			"arbeidstimer": "2t"
 		}, {
 			"name": "John Peder",
-			"id": "2"
+			"id": "2",
+			"sistsjekketinn": "12:32",
+			"sistsjekketut": "14:40",
+			"sistaktiv": "14:40",
+			"arbeidstimer": "2t"
 		},{
 			"name": "Arne Jensen",
-			"id": "3"
+			"id": "3",
+			"sistsjekketinn": "12:32",
+			"sistsjekketut": "14:21",
+			"sistaktiv": "14:21",
+			"arbeidstimer": "2t"
 		}, {
 			"name": "Kristian Peder",
-			"id": "4"
+			"id": "4",
+			"sistsjekketinn": "09:32",
+			"sistsjekketut": "15:40",
+			"sistaktiv": "15.40",
+			"arbeidstimer": "6t"
 		}]
 	 
 	 }
