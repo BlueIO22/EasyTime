@@ -2,8 +2,12 @@
 <html>
   <head>
     <title>{{ title }}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'/>
+    
+   
+    
+   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'/>
+   <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!-- <link rel='stylesheet' href='/stylesheets/flat-ui.css'/> -->
   </head>
   <body>
     <!-- Her kommer navbaren -->
@@ -28,7 +32,7 @@
        
       <ul class="nav navbar-nav navbar-right">
       
-           <li><button id="logout" class="btn btn-warning navbar-btn">Logg ut</button></li> 
+           <li><button id="logout" class="btn btn-success navbar-btn">Logg ut</button></li> 
               
           </ul>
         
@@ -65,7 +69,7 @@
             margin: 0;
             position: absolute;
             "class="btn btn-default glyphicon glyphicon-option-horizontal"></button><h4>Aktivitet</h4></div>
-            <div class="panel-body panel-collapse collapse in " id="panelstatistikk">
+            <div class="scaling panel-body panel-collapse collapse in " id="panelstatistikk">
 
               <div class="col-md-3">
                 <a href="" class="thumbnail">
@@ -76,7 +80,7 @@
 
               <div class="col-md-2"><label class="label label-info">Excel er koplet til databasen og kjører</label><br><label class="label label-success">Online</label></div>
 
-              <br><br><br>
+              <br><br><br> 
 
              
                 <h4>Siste aktivitet</h4>
@@ -196,9 +200,15 @@
   <!-- JQuery og Bootstrap -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
   <script type="text/javascript">
         
+        var socket = io('http://localhost:8080');
+          socket.on('new message', function (data) {
+              alert('Hello: ' + data.name + ', \n' + data.text);
+
+        });
         
         {{#brukere}}
           $('#person{{id}}').click(function () {
@@ -210,7 +220,19 @@
         {{/brukere}}
 
 
+        $('#logout').click(function(){
+          $.ajax({
+            type: 'POST', 
+            url: '/logout',
+            dataType: 'json',
+            data: {},
+            contentType: 'application/json; charset=utf-8',
+            success: function(data){
+               document.redirect('/login');
+            }
 
+          });
+        });
        
 
 
