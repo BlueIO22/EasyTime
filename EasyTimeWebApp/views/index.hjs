@@ -208,7 +208,14 @@
           socket.on('new message', function (data) {
               alert('Hello: ' + data.name + ', \n' + data.text);
 
-        });
+          });
+
+          socket.on('world', function(data){
+             alert('hello ' + data);
+          });
+        socket.connect();
+        
+         
         
         {{#brukere}}
           $('#person{{id}}').click(function () {
@@ -221,17 +228,7 @@
 
 
         $('#logout').click(function(){
-          $.ajax({
-            type: 'POST', 
-            url: '/logout',
-            dataType: 'json',
-            data: {},
-            contentType: 'application/json; charset=utf-8',
-            success: function(data){
-               document.redirect('/login');
-            }
-
-          });
+          socket.emit('getMessage', {name: 'Marius Sørenes', age: 21});
         });
        
 

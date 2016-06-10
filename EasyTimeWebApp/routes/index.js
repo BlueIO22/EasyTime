@@ -8,9 +8,12 @@ var mysql = require('mysql');
 var router = express.Router();
 var app = express();
 var server = require('http').Server(app);
+
 var io = require('socket.io')(server);
 
+
 server.listen(8080);
+
 
 var connection = mysql.createConnection({
   host: '127.0.0.1', 
@@ -53,15 +56,15 @@ connection.query('USE users');
  
  //Socket:
  io.sockets.on('connection', function(socket){
+
+    socket.on('getMessage', function(data){
+         io.sockets.emit('sendMessage', JSON.stringify(data));
+    });
+
+    socket.on('hello', function(data){
+      io.sockets.emit('world', data);
+    });
    
-   router.post('/sendsite', function(req, res){
-      
-     console.log(req.body);
-     io.sockets.emit('new message', req.body);
-   });
-   socket.on('sendMessage', function(data){
-      io.sockets.emit('new message', data);
-   });
  });
  
  

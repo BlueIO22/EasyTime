@@ -1,0 +1,17 @@
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\bin\Debug\iosocketstest.exe
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\bin\Debug\iosocketstest.pdb
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\bin\Debug\Newtonsoft.Json.dll
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\bin\Debug\SocketIOClient.dll
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\bin\Debug\WebSocket4Net.dll
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\bin\Debug\Newtonsoft.Json.xml
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\bin\Debug\SocketIOClient.pdb
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\bin\Debug\SocketIOClient.xml
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\obj\Debug\iosocketstest.csprojResolveAssemblyReference.cache
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\obj\Debug\iosocketstest.Form1.resources
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\obj\Debug\iosocketstest.Properties.Resources.resources
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\obj\Debug\iosocketstest.csproj.GenerateResource.Cache
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\obj\Debug\iosocketstest.exe
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\obj\Debug\iosocketstest.pdb
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\bin\Debug\iosocketstest.exe.config
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\bin\Debug\EngineIoClientDotNet.dll
+c:\users\mar_s\documents\visual studio 2015\Projects\iosocketstest\iosocketstest\bin\Debug\SocketIoClientDotNet.dll
