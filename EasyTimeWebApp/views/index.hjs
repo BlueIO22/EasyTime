@@ -228,7 +228,14 @@
 
 
         $('#logout').click(function(){
-          socket.emit('getMessage', {name: 'Marius Sørenes', age: 21});
+          $.ajax({
+            url: '/index/userdisconnect',
+            type: 'POST',
+            success: function(data){
+                console.log(data);
+            }
+          });
+          
         });
        
 

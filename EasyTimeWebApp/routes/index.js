@@ -2,7 +2,6 @@ var express = require('express');
 var sessions = require('express-session');
 var bodyParser = require('Body-Parser');
 var cookieParser = require('Cookie-Parser');
-
 var fs = require('fs');
 var mysql = require('mysql');
 var router = express.Router();
@@ -30,14 +29,17 @@ app.use(bodyParser.urlencoded({
 connection.query('USE users');
 
   router.get('/', function(req, res, next) {
-    session = req.session;
-    if(session.uniqueID != 0){
 
-    	var obj = readJSONFile('public/jsonlib/design.json');
-     	console.log(obj.program);
+    try{
+    if(session.uniqueID !== undefined){
+         
+    	  var obj = readJSONFile('public/jsonlib/design.json');
+     	  console.log(obj.program);
         res.render('index', obj.program); 
     }else{
-    
+        res.render('login');
+    }}catch(exception){
+        res.render('login');
     }
   
  });
@@ -53,7 +55,17 @@ connection.query('USE users');
    console.log(req.body);
  	res.render('demo', {});
  });
- 
+
+ router.post('/userdisconnect', function(req, res){
+   session.destroy();
+   if(session==undefined){
+     
+     res.send('Du er logget ut!');
+     res.render('login');
+   }else{
+     res.send('en feil oppstod du er ikke logget ut.');
+   }
+ }); 
  //Socket:
  io.sockets.on('connection', function(socket){
 

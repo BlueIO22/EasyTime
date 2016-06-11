@@ -17,13 +17,14 @@ var username;
 
 connection.query('USE users');
 
-var session; 
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+
+ 
 
 
 
@@ -64,7 +65,7 @@ router.post('/tryLogin', function(req, res){
             username = obj.username;
             res.send({response: 'Logget inn', url: 'http://localhost:3000/index', std: 'OK'}); 
             session.uniqueID = id;
-            console.log(session.uniqueID);
+            console.log(session);
     }else{
        res.send({response: 'Brukernavn eller passord er feil.', std: 'BAD'});
     }

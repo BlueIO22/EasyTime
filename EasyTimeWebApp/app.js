@@ -4,7 +4,7 @@ var sessions = require('express-session');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var session;
 var routes = require('./routes/login');
 var index = require('./routes/index');
 var app = express();
@@ -19,12 +19,14 @@ app.use(cookieParser());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+ 
 app.use(sessions({
   secret: 'dlwadwikpaipPWDLÆaddw',
   saveUnitialized: true,
   resave: true
 }));
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/', routes);
 app.use('/index', index);
  
