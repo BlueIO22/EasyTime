@@ -106,10 +106,14 @@
 
                     
                 </table>
+              <br>
               
             </div>
-         </div>
+          
+            </div>
       </div>
+
+      
     </div>
 
     <div class="col-md-4">
@@ -137,7 +141,6 @@
                 </ul>
                   <button id="person{{id}}" style="font-size: x-small ; height:25px;" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Endre <span class="caret"></span></button>
 
-                    
                 </span>
 
                 
@@ -154,6 +157,19 @@
         
         </div>
       </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="container-fluid">
+        <div class="panel panel-default">
+          <div id="graph">
+
+
+              </div>
+        </div>
+
+      </div>
+
     </div>
      
 
@@ -184,6 +200,7 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
   <script type="text/javascript">
         
@@ -199,6 +216,16 @@
               '<td>' + data.registered +  '</td>' + '<td>' + data.left +  '</td>'  + '</tr>';
               
               $('#tbl').append(s);
+                 var data = [
+                  {
+                    x: [data.registered],
+                    y: [1],
+                    type: 'scatter'
+                  }
+                ];
+
+                Plotly.newPlot('graph', data);
+
                
           });
         socket.connect();
@@ -226,6 +253,10 @@
             }
 
         });
+        });
+
+        $(document).ready(function(){
+       
         });
         
           
