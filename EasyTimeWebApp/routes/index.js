@@ -78,7 +78,14 @@ connection.query('USE users');
     });
 
     socket.on('hello', function(data){
-      io.sockets.emit('world', data);
+      console.log("Hello World");
+      io.sockets.emit('getInformation', JSON.stringify(data));
+    });
+
+    socket.on('sendJSON', function(data){
+       var obj = JSON.parse(data);
+       
+       io.sockets.emit('recieveJSON', obj);
     });
     
  });

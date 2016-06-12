@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using System.Collections;
+using Newtonsoft.Json;
 
 namespace SimpleTime
 {
@@ -26,6 +27,7 @@ namespace SimpleTime
         SerialPort main_port;
       
         Hashtable table = new Hashtable();
+        webserverconnection con; 
         #endregion
 
         #region methods
@@ -80,7 +82,27 @@ namespace SimpleTime
             DatoRange2.Value2 = DateTime.Now.ToString("dd:MM:yy");//Dato;
 
         }
-        #endregion 
+        #endregion
+
+        #region test_methods
+        public string addExcelRangeFromJSON(object jsonstring) {
+            try
+            {
+                dynamic json = JsonConvert.DeserializeObject((string)jsonstring);
+                Excel.Worksheet activeWorkSheet = (Excel.Worksheet)Application.ActiveSheet;
+
+                Excel.Range NyNavneRad = activeWorkSheet.get_Range("A1");
+                NyNavneRad.Insert(Excel.XlInsertShiftDirection.xlShiftDown);
+                Excel.Range NavneRad2 = activeWorkSheet.get_Range("A1");
+                NavneRad2.Value2 = json.name;//Navn;
+            }
+            catch (COMException commerr) {
+
+            }
+            return "";
+
+        }
+        #endregion
 
         #region start_methods
 
@@ -96,6 +118,9 @@ namespace SimpleTime
             table.Add("D4 95 17 B8", "Marius Sørenes");
 
             //Startsfase og algoritmer
+            con = new webserverconnection();
+            con.init();
+
 
             //Registrerer eventer for SerialPort
             SetComPort();
@@ -108,7 +133,13 @@ namespace SimpleTime
             main_port.Open();
             
         }
+ 
 
+        /// <summary>
+        /// Metode for innhenting av data fra seriekopling.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Main_port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
         
@@ -143,10 +174,18 @@ namespace SimpleTime
                         newDatoRow.Insert(Excel.XlInsertShiftDirection.xlShiftDown);
                         Excel.Range DatoRange2 = activeWorkSheet.get_Range("B1");
                         DatoRange2.Font.Bold = true;
-                        DatoRange2.Value2 = DateTime.Now.ToString("dd:MM:yy");//Dato;
+                        var date = DateTime.Now.ToString("dd:MM:yy");
+                    DatoRange2.Value2 = date; //Dato
+
+                    //sende til webserver[DEMO]
+                    RecordJSON record = new RecordJSON(s, "DEMO USER", date, date);
+                        var jsonObj = JsonConvert.SerializeObject(record);
+                        con.sendStringData(jsonObj);
                     }
                 
-            } catch (COMException comex) { }
+            } catch (COMException comex) {
+               
+            }
         }
 
         /// <summary>
@@ -245,6 +284,7 @@ namespace SimpleTime
         {
             this.Startup += new System.EventHandler(ThisAddIn_Startup);
             this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
+            
         }
 
         #endregion

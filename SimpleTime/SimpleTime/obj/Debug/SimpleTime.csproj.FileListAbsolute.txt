@@ -1,7 +1,3 @@
-C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\SimpleTime.dll
-C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\SimpleTime.pdb
-C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\SimpleTime.dll.manifest
-C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\SimpleTime.vsto
 C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\Microsoft.Office.Tools.Common.dll
 C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
 C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\Microsoft.Office.Tools.dll
@@ -17,5 +13,14 @@ C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\obj\Debug\SimpleTime.
 C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\obj\Debug\SimpleTime.EasyTime.resources
 C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\obj\Debug\SimpleTime.Properties.Resources.resources
 C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\obj\Debug\SimpleTime.csproj.GenerateResource.Cache
-C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\obj\Debug\SimpleTime.dll
-C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\obj\Debug\SimpleTime.pdb
+C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\EasyTime.dll
+C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\EasyTime.pdb
+C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\EasyTime.dll.manifest
+C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\EasyTime.vsto
+C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\EngineIoClientDotNet.dll
+C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\Newtonsoft.Json.dll
+C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\SocketIoClientDotNet.dll
+C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\WebSocket4Net.dll
+C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\bin\Debug\Newtonsoft.Json.xml
+C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\obj\Debug\EasyTime.dll
+C:\Users\mar_s\Source\Repos\EasyTime\SimpleTime\SimpleTime\obj\Debug\EasyTime.pdb
