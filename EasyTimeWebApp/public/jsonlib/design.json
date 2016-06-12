@@ -13,7 +13,7 @@
 				"name":"Instillinger",
 				"url": "/instillinger"
 			}],
-		
+		"root": "./",
 		"title": "EasyTime",
 		"bedrift": "Marinaden",
 		"brukere": [{

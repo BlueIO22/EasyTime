@@ -37,9 +37,13 @@ connection.query('USE users');
      	  console.log(obj.program);
         res.render('index', obj.program); 
     }else{
-        res.render('login');
+          	  var obj = readJSONFile('public/jsonlib/design.json');
+
+        res.render('login.hjs', obj.program);
     }}catch(exception){
-        res.render('login');
+          	  var obj = readJSONFile('public/jsonlib/design.json');
+
+        res.render('login.hjs', obj.program);
     }
   
  });
@@ -76,7 +80,7 @@ connection.query('USE users');
     socket.on('hello', function(data){
       io.sockets.emit('world', data);
     });
-   
+    
  });
  
  
