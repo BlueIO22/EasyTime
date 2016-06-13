@@ -55,12 +55,12 @@ router.post('/tryLogin', function(req, res){
   var loggedin = false;
   res.header('Content-Type', 'application/json; charset=utf-8');
   var obj = req.body;
-
+  
   connection.query('select id from users where username="' + obj.username + '" and password="' + obj.password +  '"', function(err, rows, fields){
     
       
     if(rows.length != 0){
-      console.log('hello');
+        console.log('hello');
         var id = rows[0].id;
             username = obj.username;
             res.send({response: 'Logget inn', url: 'http://localhost:3000/index', std: 'OK'}); 
