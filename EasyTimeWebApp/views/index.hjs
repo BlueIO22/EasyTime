@@ -52,9 +52,29 @@
             position: absolute;
             "class="btn btn-default glyphicon glyphicon-option-horizontal"></button><h4>Informasjon</h4></div>
             <div class="panel-body panel-collapse collapse in"  id="panelinfo">
-              <p>Velkommen til <label class="label label-success">{{ title }}</label></p>
-              <p>Versjon: <label class="label label-primary">{{version}}</label></p>
-              <p>Bedrift: <label class="label label-info">{{bedrift}}</label></p>
+              <!-- dette er sistebrukerpanelet der siste brukere kommer -->
+                <ul class="list-group" id="brukerlist">
+                    {{#personer}}
+
+               <div id="dropdown{{id}}" class="dropdown">
+                <li id="listitem{{id}}" class="list-group-item clearfix">{{name}}  &nbsp; <span class="pull-right">
+
+                  <ul id="dropdownlist{{id}}" class="dropdown-menu">
+                      <li><a href="" data-toggle="modal" data-target="#modaluser{{id}}">Rediger bruker</a></li>
+                      <li><a href="">Status</a></li>
+                      <li role="seperator" class="divider"></li>
+                      <li><a href="">Slett bruker</a></li>
+                  </ul>
+                  <button id="person{{id}}" style="font-size: x-small ; height:25px;" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Endre <span class="caret"></span></button>
+
+                </span>
+
+                
+              </li>
+                
+                
+                {{/personer}}
+                </ul>
             </div>
         </div>
       </div>
@@ -128,29 +148,7 @@
             <div id="panelbrukere" class="panel-body panel-collapse collapse in ">
         
             <ul class="list-group">
-               {{#brukere}}
-
-               <div id="dropdown{{id}}" class="dropdown">
-                <li id="listitem{{id}}" class="list-group-item clearfix">{{name}}  &nbsp; <span class="pull-right">
-
-          <ul id="dropdownlist{{id}}" class="dropdown-menu">
-                  <li><a href="" data-toggle="modal" data-target="#modaluser{{id}}">Rediger bruker</a></li>
-                  <li><a href="">Status</a></li>
-                  <li role="seperator" class="divider"></li>
-                  <li><a href="">Slett bruker</a></li>
-                </ul>
-                  <button id="person{{id}}" style="font-size: x-small ; height:25px;" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Endre <span class="caret"></span></button>
-
-                </span>
-
-                
-              </li>
-                
-                
-                {{/brukere}}
-
-                
-              </div>
+               <input type="text" class="form-control" placeholder="Søk etter bruker.." id="searchbruker" />
             </ul>
 
           </div>
@@ -177,10 +175,6 @@
            </div>
          </div>
         </div>
-
-       
- 
-     
 
     <!-- modals:: -->
     {{#brukere}}
@@ -212,7 +206,7 @@
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
   <script type="text/javascript">
-        
+        var sistebrukere = $('#brukerlist');
         var socket = io('http://localhost:8080');
           socket.on('new message', function (data) {
               alert('Hello: ' + data.name + ', \n' + data.text);
@@ -237,6 +231,26 @@
 
                
           });
+
+          socket.on('getBrukere', function(data){
+                console.log(data.personer);
+                $('<div class="dropdown">',{id: data.personer.id}).appendTo(sistebrukere);
+                $('<li/>', {'id': "listitem" + data.personer.id, 'text': data.personer.name, 'class': 'list-group-item clearfix'}).appendTo(sistebrukere);
+                $('</li>').appendTo(sistebrukere);
+             
+          });
+
+          socket.on('registerUser', function(data){
+
+              $.ajax({
+                url: '/index/getSistebrukere',
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                success: function(data){
+
+                }
+              });
+          });
         socket.connect();
         
          
@@ -258,13 +272,27 @@
             url: '/index/userdisconnect',
             type: 'POST',
             success: function(data){
-
             }
 
         });
         });
 
+        
+
         $(document).ready(function(){
+
+          //getsistebrukere
+          
+
+              $.ajax({
+                url: '/index/getSistebrukere',
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                success: function(data){
+                   console.log(data);
+                }
+              });
+
           var data = [
                   {
                     name: 'Marius Sørenes',

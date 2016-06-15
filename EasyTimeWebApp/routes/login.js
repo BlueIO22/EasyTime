@@ -10,7 +10,6 @@ var app = express();
 var connection = mysql.createConnection({
   host: '127.0.0.1', 
   user: 'root',
- 
 });
 
 var username;
@@ -23,10 +22,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-
- 
-
-
 
 router.get('/redirects', function(req, res){
   session = req.session;
@@ -41,14 +36,12 @@ function readJSONFile(filepath){
   var file = fs.readFileSync(filepath, 'utf-8');
   return JSON.parse(file);
 
- }
-
+}
 
 router.get('/login', function(req, res, next) {
   var obj = readJSONFile('public/jsonlib/design.json');
   res.render('login', obj.program);
 });
-
 
 router.post('/tryLogin', function(req, res){
   session = req.session;
@@ -60,7 +53,7 @@ router.post('/tryLogin', function(req, res){
     
       
     if(rows.length != 0){
-        console.log('hello');
+        
         var id = rows[0].id;
             username = obj.username;
             res.send({response: 'Logget inn', url: 'http://localhost:3000/index', std: 'OK'}); 

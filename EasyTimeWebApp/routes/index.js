@@ -16,7 +16,7 @@ server.listen(8080);
 
 var connection = mysql.createConnection({
   host: '127.0.0.1', 
-  user: 'root',
+  user: 'root'
  
 });
 
@@ -88,6 +88,33 @@ connection.query('USE users');
        io.sockets.emit('recieveJSON', obj);
     });
     
+ });
+
+ router.post('/getBrukere', function(req, res){
+    var obj = JSON.stringify(req.body);
+    var person = obj.person;
+
+    connection.query('select id, fornavn, etternavn from personer where fornavn LIKE ' + obj.person + ' or etternavn LIKE ' + obj.person, function(err, rows, fields){
+       if(rows.length != 0){
+         res.send(rows[0].navn);
+       }
+    });
+
+
+ });
+
+ router.post('/getSistebrukere', function(req, res){
+
+    connection.query('select id, fornavn, etternavn from personer order by id desc limit 4', function(err, rows, fields){
+               if(rows.length != 0){
+                 for(var i = 0; i<rows.length; i++){
+                  var navn = rows[i].fornavn + ' ' + rows[i].etternavn;
+                  var pid = rows[i].id;
+
+                  io.sockets.emit('getBrukere', {personer: {name: navn, id: pid}});
+               }
+               }
+    });
  });
  
  
