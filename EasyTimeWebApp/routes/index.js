@@ -32,17 +32,14 @@ connection.query('USE users');
 
     try{
     if(session.uniqueID !== undefined){
-         
     	  var obj = readJSONFile('public/jsonlib/design.json');
      	  console.log(obj.program);
         res.render('index', obj.program); 
     }else{
-          	  var obj = readJSONFile('public/jsonlib/design.json');
-
+        var obj = readJSONFile('public/jsonlib/design.json');
         res.render('login.hjs', obj.program);
     }}catch(exception){
-          	  var obj = readJSONFile('public/jsonlib/design.json');
-
+        var obj = readJSONFile('public/jsonlib/design.json');
         res.render('login.hjs', obj.program);
     }
   
@@ -87,7 +84,6 @@ connection.query('USE users');
        
        io.sockets.emit('recieveJSON', obj);
     });
-    
  });
 
  router.post('/getBrukere', function(req, res){
@@ -106,14 +102,14 @@ connection.query('USE users');
  router.post('/getSistebrukere', function(req, res){
 
     connection.query('select id, fornavn, etternavn from personer order by id desc limit 4', function(err, rows, fields){
-               if(rows.length != 0){
-                 for(var i = 0; i<rows.length; i++){
+         if(rows.length != 0){
+               for(var i = 0; i<rows.length; i++){
                   var navn = rows[i].fornavn + ' ' + rows[i].etternavn;
                   var pid = rows[i].id;
-
-                  io.sockets.emit('getBrukere', {personer: {name: navn, id: pid}});
+                  var comp = rows[i].bedrift;
+                  io.sockets.emit('getBrukere', {personer: {name: navn, id: pid, bedrift: comp}});
                }
-               }
+         }
     });
  });
  

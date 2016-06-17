@@ -42,7 +42,7 @@
 </nav>
 
 <br>
-    <div class="col-md-3">
+    <div class="col-md-4">
       <div class="panel panel-default">
         <div class="container-fluid">
           <div class="panel-header"><button data-toggle="collapse" data-target="#panelinfo" id="infobutton" style="
@@ -50,30 +50,11 @@
             border-style:none;
             margin: 0;
             position: absolute;
-            "class="btn btn-default glyphicon glyphicon-option-horizontal"></button><h4>Informasjon</h4></div>
+            "class="btn btn-default glyphicon glyphicon-option-horizontal"></button><h4>Siste brukere</h4></div>
             <div class="panel-body panel-collapse collapse in"  id="panelinfo">
               <!-- dette er sistebrukerpanelet der siste brukere kommer -->
                 <ul class="list-group" id="brukerlist">
-                    {{#personer}}
-
-               <div id="dropdown{{id}}" class="dropdown">
-                <li id="listitem{{id}}" class="list-group-item clearfix">{{name}}  &nbsp; <span class="pull-right">
-
-                  <ul id="dropdownlist{{id}}" class="dropdown-menu">
-                      <li><a href="" data-toggle="modal" data-target="#modaluser{{id}}">Rediger bruker</a></li>
-                      <li><a href="">Status</a></li>
-                      <li role="seperator" class="divider"></li>
-                      <li><a href="">Slett bruker</a></li>
-                  </ul>
-                  <button id="person{{id}}" style="font-size: x-small ; height:25px;" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Endre <span class="caret"></span></button>
-
-                </span>
-
-                
-              </li>
-                
-                
-                {{/personer}}
+                   <!-- her kommer det data dynamisk inn -->
                 </ul>
             </div>
         </div>
@@ -136,7 +117,7 @@
       
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
      <div class="panel panel-default ">
         <div class="container-fluid">
             <div class="panel-header"><button style="
@@ -178,6 +159,7 @@
 
     <!-- modals:: -->
     {{#brukere}}
+    <div id="modelcontainer">
     <div class="modal fade" id="modaluser{{id}}" tabindex="-1" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -197,6 +179,7 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    </div>
     {{/brukere}}
   </body>
   <!-- JQuery og Bootstrap -->
@@ -236,8 +219,72 @@
                 console.log(data.personer);
                 $('<div class="dropdown">',{id: data.personer.id}).appendTo(sistebrukere);
                 $('<li/>', {'id': "listitem" + data.personer.id, 'text': data.personer.name, 'class': 'list-group-item clearfix'}).appendTo(sistebrukere);
-                $('</li>').appendTo(sistebrukere);
-             
+                $('<span/>', {'id': 'span' + data.personer.id,'class': 'pull-right'}).appendTo('#listitem' + data.personer.id);
+                var limain = $('#span' + data.personer.id);
+
+                //UL liste for brukere, de fire siste
+                $('<ul/>', {'id': 'dropdownlist' + data.personer.id, 'class': 'dropdown-menu'}).appendTo(limain);
+                $('<li/>', {'id': 'li' + data.personer.id}).appendTo($('#dropdownlist' + data.personer.id));
+                $('<a/>', {'data-toggle': 'modal', 'data-target': '#modaluser' + data.personer.id, 'text': 'Rediger bruker'}).appendTo($('#li' + data.personer.id));
+                $('<li/>', {'id': 'li' + data.personer.id + 'one'}).appendTo($('#dropdownlist' + data.personer.id));
+                $('<a/>', {'text': 'Status'}).appendTo($('#li' + data.personer.id + 'one'));
+                $('<li/>', {'class': 'divider', 'role': 'seperator'}).appendTo($('#dropdownlist' + data.personer.id));
+                $('<li/>',{'id': 'li' + data.personer.id + 'to'}).appendTo($('#dropdownlist' + data.personer.id));
+                $('<a/>', {'text': 'Slett bruker'}).appendTo($('#li' + data.personer.id + 'to'));
+
+                $('<button/>',{'id': 'buttonrediger' + data.personer.id, 'style': 'font-size: x-small ; height:25px;', 
+                'class': 'btn btn-default dropdown-toggle', 'data-toggle': 'dropdown', 'aria-hashpopup':'true', 'aria-expanded': 'false'}).appendTo(limain);
+                $('<span/>', {'class': 'caret'}).appendTo($('#buttonrediger' + data.personer.id));
+
+                //modal:
+                var modelcontainer = $('#modalcontainer');
+                
+                $('<div/>', {
+                'class': 'modal fade', 
+                'id': 'modalMain' + data.personer.id,
+                'tabindex': '-1',
+                'role': 'dialog'
+                
+                }).appendTo(modelcontainer);
+
+                var modelmain = $('#modalMain' + data.personer.id);
+
+                $('<div/>', {'class':'modal-dialog', 'id':'modaldialog' + data.personer.id}).appendTo(modelMain);
+
+                var modaldialog = $('#modaldialog' + data.personer.id);
+
+                $('<div/>', {'class': 'modal-content', 'id': 'modalcontent' + data.personer.id}).appendTo(modaldialog);
+
+                var modalcontent = $('#modalcontent' + data.personer.id);
+
+                $('<div/>', 'class':'modal-header', 'id':'modalheader' + data.personer.id).appendTo(modalcontent);
+
+                var modalheader = $('#modalheader' + data.personer.id);
+
+                //desse DOM objektene skal i modalheaderen
+                $('<button/>', {'type': 'button', 'class': 'close', 'data-dismiss': 'modal',
+                 'aria-label': 'Lukk', 'id': 'modalclosebutton' + data.personer.id}).appendTo(modalheader);
+                $('<span/>' {'aria-hidden': 'true', 'text':'&times;'}).appendTo($('#modalclosebutton' + data.personer.id));
+                $('<h4/>', {'class': 'modal-title', 'text': {{title}} + "|" + data.personer.bedrift).appendTo(modalheader);
+
+                //desse DOM objektene skal i modelbody
+            <button type="button" class="close" data-dismiss="modal" 
+            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">{{title}} | {{bedrift}}</h4>
+          </div>
+          <div class="modal-body">
+            <p>Bruker: {{name}}&hellip;</p>
+            <input type="text" class="form-control" placeholder="Navn.." id="brukerNavn"/>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+            <button type="button" class="btn btn-primary">Lagre endringer</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    </div>
           });
 
           socket.on('registerUser', function(data){
