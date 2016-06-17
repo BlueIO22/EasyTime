@@ -158,29 +158,7 @@
         </div>
 
     <!-- modals:: -->
-    {{#brukere}}
-    <div id="modelcontainer">
-    <div class="modal fade" id="modaluser{{id}}" tabindex="-1" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">{{title}} | {{bedrift}}</h4>
-          </div>
-          <div class="modal-body">
-            <p>Bruker: {{name}}&hellip;</p>
-            <input type="text" class="form-control" placeholder="Navn.." id="brukerNavn"/>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
-            <button type="button" class="btn btn-primary">Lagre endringer</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    </div>
-    {{/brukere}}
+     <div id="modalcontainer"></div>
   </body>
   <!-- JQuery og Bootstrap -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -217,6 +195,9 @@
 
           socket.on('getBrukere', function(data){
                 console.log(data.personer);
+                //modal:
+                
+                
                 $('<div class="dropdown">',{id: data.personer.id}).appendTo(sistebrukere);
                 $('<li/>', {'id': "listitem" + data.personer.id, 'text': data.personer.name, 'class': 'list-group-item clearfix'}).appendTo(sistebrukere);
                 $('<span/>', {'id': 'span' + data.personer.id,'class': 'pull-right'}).appendTo('#listitem' + data.personer.id);
@@ -225,7 +206,7 @@
                 //UL liste for brukere, de fire siste
                 $('<ul/>', {'id': 'dropdownlist' + data.personer.id, 'class': 'dropdown-menu'}).appendTo(limain);
                 $('<li/>', {'id': 'li' + data.personer.id}).appendTo($('#dropdownlist' + data.personer.id));
-                $('<a/>', {'data-toggle': 'modal', 'data-target': '#modaluser' + data.personer.id, 'text': 'Rediger bruker'}).appendTo($('#li' + data.personer.id));
+                $('<a/>', {'href':'', 'data-toggle': 'modal', 'data-target': '#modaluser' + data.personer.id, 'text': 'Rediger bruker'}).appendTo($('#li' + data.personer.id));
                 $('<li/>', {'id': 'li' + data.personer.id + 'one'}).appendTo($('#dropdownlist' + data.personer.id));
                 $('<a/>', {'text': 'Status'}).appendTo($('#li' + data.personer.id + 'one'));
                 $('<li/>', {'class': 'divider', 'role': 'seperator'}).appendTo($('#dropdownlist' + data.personer.id));
@@ -236,20 +217,19 @@
                 'class': 'btn btn-default dropdown-toggle', 'data-toggle': 'dropdown', 'aria-hashpopup':'true', 'aria-expanded': 'false'}).appendTo(limain);
                 $('<span/>', {'class': 'caret'}).appendTo($('#buttonrediger' + data.personer.id));
 
-                //modal:
-                var modelcontainer = $('#modalcontainer');
+               var modelcontainer = $('#modalcontainer');
                 
                 $('<div/>', {
-                'class': 'modal fade', 
-                'id': 'modalMain' + data.personer.id,
+                'id': 'modaluser' + data.personer.id,
+                'class': 'modal fade',
                 'tabindex': '-1',
                 'role': 'dialog'
                 
                 }).appendTo(modelcontainer);
 
-                var modelmain = $('#modalMain' + data.personer.id);
+                var modelmain = $('#modaluser' + data.personer.id);
 
-                $('<div/>', {'class':'modal-dialog', 'id':'modaldialog' + data.personer.id}).appendTo(modelMain);
+                $('<div/>', {'class':'modal-dialog', 'id':'modaldialog' + data.personer.id}).appendTo(modelmain);
 
                 var modaldialog = $('#modaldialog' + data.personer.id);
 
@@ -257,34 +237,55 @@
 
                 var modalcontent = $('#modalcontent' + data.personer.id);
 
-                $('<div/>', 'class':'modal-header', 'id':'modalheader' + data.personer.id).appendTo(modalcontent);
+                $('<div/>', {'class':'modal-header', 'id':'modalheader' + data.personer.id}).appendTo(modalcontent);
 
                 var modalheader = $('#modalheader' + data.personer.id);
 
                 //desse DOM objektene skal i modalheaderen
                 $('<button/>', {'type': 'button', 'class': 'close', 'data-dismiss': 'modal',
                  'aria-label': 'Lukk', 'id': 'modalclosebutton' + data.personer.id}).appendTo(modalheader);
-                $('<span/>' {'aria-hidden': 'true', 'text':'&times;'}).appendTo($('#modalclosebutton' + data.personer.id));
-                $('<h4/>', {'class': 'modal-title', 'text': {{title}} + "|" + data.personer.bedrift).appendTo(modalheader);
+                $('<span/>', {'aria-hidden': 'true', 'text':'&times;'}).appendTo($('#modalclosebutton' + data.personer.id));
+                $('<h4/>', {'class': 'modal-title', 'text': '{{title}} |' + data.personer.bedrift}).appendTo(modalheader);
+
+                //Modal body
+                $('<div/>', {
+                  'id': 'modalbody' + data.personer.id,
+                  'class': 'modal-body'
+                }).appendTo(modalcontent);
+
+                var modalbody = $('#modalbody' + data.personer.id);
 
                 //desse DOM objektene skal i modelbody
-            <button type="button" class="close" data-dismiss="modal" 
-            aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">{{title}} | {{bedrift}}</h4>
-          </div>
-          <div class="modal-body">
-            <p>Bruker: {{name}}&hellip;</p>
-            <input type="text" class="form-control" placeholder="Navn.." id="brukerNavn"/>
+                $('<p/>', {
+                  'text': 'Bruker: ' + data.personer.name + '',
+                }).appendTo(modalbody);
+                
+                $('<input/>', {
+                  'id':'textBox' + data.personer.id,
+                  'placeholder': 'Navn..',
+                  'class': 'form-control',
+                  'type': 'text'
+                  
+                }).appendTo(modalbody);
 
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
-            <button type="button" class="btn btn-primary">Lagre endringer</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    </div>
+                //Modal Footer
+                $('<div/>', {'class': 'modal-footer', 'id':'modalfooter' + data.personer.id}).appendTo(modalcontent);
+                
+                var modalfooter = $('#modalfooter' + data.personer.id);
+
+                $('<button/>', {
+                  'type': 'button',
+                  'class': 'btn btn-default',
+                  'data-dismiss': 'modal',
+                  'text': 'Lukk'
+                }).appendTo(modalfooter);
+
+                $('<button/>',{
+                  'type': 'button',
+                  'class': 'btn btn-primary',
+                  'text': 'Endre'
+                }).appendTo(modalfooter);
+                
           });
 
           socket.on('registerUser', function(data){
