@@ -61,7 +61,7 @@
       </div>
     </div>
 
-    <div class="col-md-5">
+    <div class="col-md-4">
      <div  class="panel panel-default">
         <div class="container-fluid">
             <div class="panel-header"><button data-toggle="collapse" data-target="#panelstatistikk" style="
@@ -117,7 +117,7 @@
       
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
      <div class="panel panel-default ">
         <div class="container-fluid">
             <div class="panel-header"><button style="
@@ -127,10 +127,16 @@
             position: absolute;
             "class="btn btn-default glyphicon glyphicon-option-horizontal" data-toggle="collapse" data-target="#panelbrukere"></button><h4>Brukere</h4></div>
             <div id="panelbrukere" class="panel-body panel-collapse collapse in ">
-        
-            <ul class="list-group">
-               <input type="text" class="form-control" placeholder="Søk etter bruker.." id="searchbruker" />
-            </ul>
+             
+              <div class="col-md-10"><input type="text" id="searchbruker" class="form-control" placeholder="Søk etter bruker.." list="personersøkliste" multiple/>  
+        	    </div><div class="col-md-2" style="left: 10px; "><span class="pull-right"><button type="button" id="searchbrukerbutton" class="btn btn-success">Åpne</button></span></div>
+                
+               
+                <datalist id="personersøkliste"> 
+
+                </datalist>
+
+            
 
           </div>
         
@@ -164,7 +170,8 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script   src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js"></script> 
+ <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
   <script type="text/javascript">
         var sistebrukere = $('#brukerlist');
@@ -194,112 +201,15 @@
           });
 
           socket.on('getBrukere', function(data){
-                console.log(data.personer);
-                //modal:
                 
-                
-                $('<div class="dropdown">',{id: data.personer.id}).appendTo(sistebrukere);
-                $('<li/>', {'id': "listitem" + data.personer.id, 'text': data.personer.name, 'class': 'list-group-item clearfix'}).appendTo(sistebrukere);
-                $('<span/>', {'id': 'span' + data.personer.id,'class': 'pull-right'}).appendTo('#listitem' + data.personer.id);
-                var limain = $('#span' + data.personer.id);
-
-                //UL liste for brukere, de fire siste
-                $('<ul/>', {'id': 'dropdownlist' + data.personer.id, 'class': 'dropdown-menu'}).appendTo(limain);
-                $('<li/>', {'id': 'li' + data.personer.id}).appendTo($('#dropdownlist' + data.personer.id));
-                $('<a/>', {'href':'', 'data-toggle': 'modal', 'data-target': '#modaluser' + data.personer.id, 'text': 'Rediger bruker'}).appendTo($('#li' + data.personer.id));
-                $('<li/>', {'id': 'li' + data.personer.id + 'one'}).appendTo($('#dropdownlist' + data.personer.id));
-                $('<a/>', {'text': 'Status'}).appendTo($('#li' + data.personer.id + 'one'));
-                $('<li/>', {'class': 'divider', 'role': 'seperator'}).appendTo($('#dropdownlist' + data.personer.id));
-                $('<li/>',{'id': 'li' + data.personer.id + 'to'}).appendTo($('#dropdownlist' + data.personer.id));
-                $('<a/>', {'text': 'Slett bruker'}).appendTo($('#li' + data.personer.id + 'to'));
-
-                $('<button/>',{'id': 'buttonrediger' + data.personer.id, 'style': 'font-size: x-small ; height:25px;', 
-                'class': 'btn btn-default dropdown-toggle', 'data-toggle': 'dropdown', 'aria-hashpopup':'true', 'aria-expanded': 'false'}).appendTo(limain);
-                $('<span/>', {'class': 'caret'}).appendTo($('#buttonrediger' + data.personer.id));
-
-               var modelcontainer = $('#modalcontainer');
-                
-                $('<div/>', {
-                'id': 'modaluser' + data.personer.id,
-                'class': 'modal fade',
-                'tabindex': '-1',
-                'role': 'dialog'
-                
-                }).appendTo(modelcontainer);
-
-                var modelmain = $('#modaluser' + data.personer.id);
-
-                $('<div/>', {'class':'modal-dialog', 'id':'modaldialog' + data.personer.id}).appendTo(modelmain);
-
-                var modaldialog = $('#modaldialog' + data.personer.id);
-
-                $('<div/>', {'class': 'modal-content', 'id': 'modalcontent' + data.personer.id}).appendTo(modaldialog);
-
-                var modalcontent = $('#modalcontent' + data.personer.id);
-
-                $('<div/>', {'class':'modal-header', 'id':'modalheader' + data.personer.id}).appendTo(modalcontent);
-
-                var modalheader = $('#modalheader' + data.personer.id);
-
-                //desse DOM objektene skal i modalheaderen
-                $('<button/>', {'type': 'button', 'class': 'close', 'data-dismiss': 'modal',
-                 'aria-label': 'Lukk', 'id': 'modalclosebutton' + data.personer.id}).appendTo(modalheader);
-                $('<span/>', {'aria-hidden': 'true', 'text':'&times;'}).appendTo($('#modalclosebutton' + data.personer.id));
-                $('<h4/>', {'class': 'modal-title', 'text': '{{title}} |' + data.personer.bedrift}).appendTo(modalheader);
-
-                //Modal body
-                $('<div/>', {
-                  'id': 'modalbody' + data.personer.id,
-                  'class': 'modal-body'
-                }).appendTo(modalcontent);
-
-                var modalbody = $('#modalbody' + data.personer.id);
-
-                //desse DOM objektene skal i modelbody
-                $('<p/>', {
-                  'text': 'Bruker: ' + data.personer.name + '',
-                }).appendTo(modalbody);
-                
-                $('<input/>', {
-                  'id':'textBox' + data.personer.id,
-                  'placeholder': 'Navn..',
-                  'class': 'form-control',
-                  'type': 'text'
-                  
-                }).appendTo(modalbody);
-
-                //Modal Footer
-                $('<div/>', {'class': 'modal-footer', 'id':'modalfooter' + data.personer.id}).appendTo(modalcontent);
-                
-                var modalfooter = $('#modalfooter' + data.personer.id);
-
-                $('<button/>', {
-                  'type': 'button',
-                  'class': 'btn btn-default',
-                  'data-dismiss': 'modal',
-                  'text': 'Lukk'
-                }).appendTo(modalfooter);
-
-                $('<button/>',{
-                  'type': 'button',
-                  'class': 'btn btn-primary',
-                  'text': 'Endre'
-                }).appendTo(modalfooter);
                 
           });
 
           socket.on('registerUser', function(data){
 
-              $.ajax({
-                url: '/index/getSistebrukere',
-                type: 'POST',
-                contentType: "application/json; charset=utf-8",
-                success: function(data){
-
-                }
-              });
           });
         socket.connect();
+        
         
          
         
@@ -325,19 +235,178 @@
         });
         });
 
-        
+         
 
         $(document).ready(function(){
-
-          //getsistebrukere
           
+          //getsistebrukere
+              $.ajax({
+                url: '/index/getBrukere',
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function(data){
+                   var liste = $('#personersøkliste');
+                   if(data.length!=0){
+                   for(var i = 0; i<data.length; i++){
+                     console.log(data[i].name);
+                      $('<option/>', {'value':data[i].name, 'text':data[i].name}).appendTo(liste);
+
+                   }
+                   }
+                }
+              
+              });
+
+              
+                            'use strict';
+              function updateList(that) {
+                  var lastValue = that.lastValue,
+                      value = that.value,
+                      array = [],
+                      pos = value.indexOf('|'),
+                      start = that.selectionStart,
+                      end = that.selectionEnd,
+                      options;
+
+                  if (that.options) {
+                      options = that.options;
+                  } else {
+                      options = Object.keys(that.list.options).map(function (option) {
+                          return that.list.options[option].value;
+                      });
+                      that.options = options;
+                  }
+
+                  if (lastValue !== value) {
+                      that.list.innerHTML = options.filter(function (a) {
+                          return ~a.toLowerCase().indexOf(value.toLowerCase());
+                      }).map(function (a) {
+                          return '<option value="' + value + '| ' + a + '">' + a + '</option>';
+                      }).join();
+                      updateInput(that);
+                      that.lastValue = value;
+                  }
+              }
+
+              $('#searchbruker').keyup(function(){
+                updateList(this);
+              });
+
+               
+
+              function updateInput(that) {
+                  var value = that.value,
+                      pos = value.indexOf('|'),
+                      start = that.selectionStart,
+                      end = that.selectionEnd;
+
+                  if (~pos) {
+                      value = value.slice(pos + 1);
+                  }
+                  that.value = value;
+                  that.setSelectionRange(start, end);
+              }
 
               $.ajax({
                 url: '/index/getSistebrukere',
                 type: 'POST',
                 contentType: "application/json; charset=utf-8",
                 success: function(data){
-                   console.log(data);
+                  
+                //modal:
+                if(sistebrukere.size() > 4){ sistebrukere.empty();}
+                
+                for(var i = 0; i<4; i++){
+                $('<div class="dropdown">',{id: data[i].id}).appendTo(sistebrukere);
+                $('<li/>', {'id': "listitem" + data[i].id, 'text': data[i].name, 'class': 'list-group-item clearfix'}).appendTo(sistebrukere);
+                $('<span/>', {'id': 'span' + data[i].id,'class': 'pull-right'}).appendTo('#listitem' + data[i].id);
+                var limain = $('#span' + data[i].id);
+
+                //UL liste for brukere, de fire siste
+                $('<ul/>', {'id': 'dropdownlist' + data[i].id, 'class': 'dropdown-menu'}).appendTo(limain);
+                $('<li/>', {'id': 'li' + data[i].id}).appendTo($('#dropdownlist' + data[i].id));
+                $('<a/>', {'href':'', 'data-toggle': 'modal', 'data-target': '#modaluser' + data[i].id, 'text': 'Rediger bruker'}).appendTo($('#li' + data[i].id));
+                $('<li/>', {'id': 'li' + data[i].id + 'one'}).appendTo($('#dropdownlist' + data[i].id));
+                $('<a/>', {'text': 'Status'}).appendTo($('#li' + data[i].id + 'one'));
+                $('<li/>', {'class': 'divider', 'role': 'seperator'}).appendTo($('#dropdownlist' + data[i].id));
+                $('<li/>',{'id': 'li' + data[i].id + 'to'}).appendTo($('#dropdownlist' + data[i].id));
+                $('<a/>', {'text': 'Slett bruker'}).appendTo($('#li' + data[i].id + 'to'));
+
+                $('<button/>',{'id': 'buttonrediger' + data[i].id, 'style': 'font-size: x-small ; height:25px;', 
+                'class': 'btn btn-default dropdown-toggle', 'data-toggle': 'dropdown', 'aria-hashpopup':'true', 'aria-expanded': 'false'}).appendTo(limain);
+                $('<span/>', {'class': 'caret'}).appendTo($('#buttonrediger' + data[i].id));
+
+               var modelcontainer = $('#modalcontainer');
+                
+                $('<div/>', {
+                'id': 'modaluser' + data[i].id,
+                'class': 'modal fade',
+                'tabindex': '-1',
+                'role': 'dialog'
+                
+                }).appendTo(modelcontainer);
+
+                var modelmain = $('#modaluser' + data[i].id);
+
+                $('<div/>', {'class':'modal-dialog', 'id':'modaldialog' + data[i].id}).appendTo(modelmain);
+
+                var modaldialog = $('#modaldialog' + data[i].id);
+
+                $('<div/>', {'class': 'modal-content', 'id': 'modalcontent' + data[i].id}).appendTo(modaldialog);
+
+                var modalcontent = $('#modalcontent' + data[i].id);
+
+                $('<div/>', {'class':'modal-header', 'id':'modalheader' + data[i].id}).appendTo(modalcontent);
+
+                var modalheader = $('#modalheader' + data[i].id);
+
+                //desse DOM objektene skal i modalheaderen
+                $('<button/>', {'type': 'button', 'class': 'close', 'data-dismiss': 'modal',
+                 'aria-label': 'Lukk', 'id': 'modalclosebutton' + data[i].id}).appendTo(modalheader);
+                $('<span/>', {'aria-hidden': 'true', 'html':'&times;'}).appendTo($('#modalclosebutton' + data[i].id));
+                $('<h4/>', {'class': 'modal-title', 'text': '{{title}} | ' + data[i].bedrift}).appendTo(modalheader);
+                
+                //Modal body
+                $('<div/>', {
+                  'id': 'modalbody' + data[i].id,
+                  'class': 'modal-body'
+                }).appendTo(modalcontent);
+
+                var modalbody = $('#modalbody' + data[i].id);
+
+                //desse DOM objektene skal i modelbody
+                $('<p/>', {
+                  'text': 'Bruker: ' + data[i].name + '',
+                }).appendTo(modalbody);
+                
+                $('<input/>', {
+                  'id':'textBox' + data[i].id,
+                  'placeholder': 'Navn..',
+                  'class': 'form-control',
+                  'type': 'text'
+                  
+                }).appendTo(modalbody);
+
+                //Modal Footer
+                $('<div/>', {'class': 'modal-footer', 'id':'modalfooter' + data[i].id}).appendTo(modalcontent);
+                
+                var modalfooter = $('#modalfooter' + data[i].id);
+
+                $('<button/>', {
+                  'type': 'button',
+                  'class': 'btn btn-default',
+                  'data-dismiss': 'modal',
+                  'text': 'Lukk'
+                }).appendTo(modalfooter);
+
+                $('<button/>',{
+                  'type': 'button',
+                  'class': 'btn btn-primary',
+                  'text': 'Endre'
+                }).appendTo(modalfooter);
+                }
+
                 }
               });
 

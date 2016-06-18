@@ -33,7 +33,6 @@ connection.query('USE users');
     try{
     if(session.uniqueID !== undefined){
     	  var obj = readJSONFile('public/jsonlib/design.json');
-     	  console.log(obj.program);
         res.render('index', obj.program); 
     }else{
         var obj = readJSONFile('public/jsonlib/design.json');
@@ -69,7 +68,7 @@ connection.query('USE users');
  }); 
  //Socket:
  io.sockets.on('connection', function(socket){
-
+    
     socket.on('getMessage', function(data){
          io.sockets.emit('sendMessage', JSON.stringify(data));
     });
@@ -84,36 +83,56 @@ connection.query('USE users');
        
        io.sockets.emit('recieveJSON', obj);
     });
+
+     
+ 
  });
 
  router.post('/getBrukere', function(req, res){
-    var obj = JSON.stringify(req.body);
-    var person = obj.person;
+    var obj = req.body;
+    var person = obj.text;
+    console.log(obj);
+    var personer = [];
+    connection.query("select * from personer", function(err, rows, fields){
+       if(err){
+            throw err;
+        }else{
+             if(rows.length != 0){
+                  for(var i = 0; i<rows.length; i++){
+                  var navn = rows[i].fornavn + ' ' + rows[i].etternavn;
+                      personer.push({name: navn});
+                  }
+         
+              }
+        }
+        res.send(personer);
+       
 
-    connection.query('select id, fornavn, etternavn from personer where fornavn LIKE ' + obj.person + ' or etternavn LIKE ' + obj.person, function(err, rows, fields){
-       if(rows.length != 0){
-         res.send(rows[0].navn);
-       }
+       
     });
-
 
  });
 
- router.post('/getSistebrukere', function(req, res){
-
-    connection.query('select id, fornavn, etternavn from personer order by id desc limit 4', function(err, rows, fields){
+router.post('/getSistebrukere', function(req, res){
+  
+    connection.query('select id, fornavn, etternavn, bedrift from personer order by id desc limit 4', function(err, rows, fields){
+         var personer = [];
          if(rows.length != 0){
                for(var i = 0; i<rows.length; i++){
                   var navn = rows[i].fornavn + ' ' + rows[i].etternavn;
                   var pid = rows[i].id;
                   var comp = rows[i].bedrift;
-                  io.sockets.emit('getBrukere', {personer: {name: navn, id: pid, bedrift: comp}});
+                  console.log(comp);
+                  personer.push({name: navn, id: pid, bedrift: comp});
                }
          }
+
+                           res.send(personer);
+
+         
     });
- });
  
- 
+});
  
   
 
