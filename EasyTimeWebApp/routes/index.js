@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
  
-connection.query('USE users');
+connection.query('USE demo');
 
   router.get('/', function(req, res, next) {
 
@@ -93,11 +93,11 @@ connection.query('USE users');
     var person = obj.text;
     console.log(obj);
     var personer = [];
-    connection.query("select * from personer", function(err, rows, fields){
+    connection.query("select * from registrations", function(err, rows, fields){
        if(err){
             throw err;
         }else{
-             if(rows.length != 0){
+             if(rows.length != 0){ 
                   for(var i = 0; i<rows.length; i++){
                   var navn = rows[i].fornavn + ' ' + rows[i].etternavn;
                       personer.push({name: navn});
@@ -115,19 +115,20 @@ connection.query('USE users');
 
 router.post('/getSistebrukere', function(req, res){
   
-    connection.query('select id, fornavn, etternavn, bedrift from personer order by id desc limit 4', function(err, rows, fields){
+    connection.query('select id, firstname, lastname, company, type from registrations order by id desc limit 4', function(err, rows, fields){
          var personer = [];
          if(rows.length != 0){
                for(var i = 0; i<rows.length; i++){
-                  var navn = rows[i].fornavn + ' ' + rows[i].etternavn;
+                  var navn = rows[i].firstname + ' ' + rows[i].lastname;
                   var pid = rows[i].id;
-                  var comp = rows[i].bedrift;
-                  console.log(comp);
-                  personer.push({name: navn, id: pid, bedrift: comp});
+                  var comp = rows[i].company;
+                  var tp = rows[i].type;
+                   
+                  personer.push({name: navn, id: pid, bedrift: comp, type: tp});
                }
          }
 
-                           res.send(personer);
+         res.send(personer);
 
          
     });

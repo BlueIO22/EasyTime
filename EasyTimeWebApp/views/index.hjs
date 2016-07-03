@@ -56,6 +56,9 @@
                 <ul class="list-group" id="brukerlist">
                    <!-- her kommer det data dynamisk inn -->
                 </ul>
+                <div class="col-md-6">
+                <li class="list-group-item list-group-item-success">Registrert inn</li>
+                <li class="list-group-item list-group-item-info">Registrert ut</li></div>
             </div>
         </div>
       </div>
@@ -79,7 +82,7 @@
 
               </div>
 
-              <div class="col-md-2"><label class="label label-info">Excel er koplet til databasen og kjører</label><br><label class="label label-success">Online</label></div>
+              <div class="col-md-2"><label class="label label-info">EasyTime Desktop er koplet til databasen og kjører</label><br></div>
 
               <br><br><br> 
 
@@ -282,7 +285,7 @@
                       that.list.innerHTML = options.filter(function (a) {
                           return ~a.toLowerCase().indexOf(value.toLowerCase());
                       }).map(function (a) {
-                          return '<option value="' + value + '| ' + a + '">' + a + '</option>';
+                          return '<option value="' + value + '|' + a + '">' + a + '</option>';
                       }).join();
                       updateInput(that);
                       that.lastValue = value;
@@ -290,6 +293,10 @@
               }
 
               $('#searchbruker').keyup(function(){
+                updateList(this);
+              });
+
+              $('#searchbruker').change(function(){
                 updateList(this);
               });
 
@@ -302,8 +309,8 @@
                       end = that.selectionEnd;
 
                   if (~pos) {
-                      value = value.slice(pos + 1);
-                  }
+                    value = value.slice(pos + 1);
+                  } 
                   that.value = value;
                   that.setSelectionRange(start, end);
               }
@@ -319,7 +326,11 @@
                 
                 for(var i = 0; i<4; i++){
                 $('<div class="dropdown">',{id: data[i].id}).appendTo(sistebrukere);
-                $('<li/>', {'id': "listitem" + data[i].id, 'text': data[i].name, 'class': 'list-group-item clearfix'}).appendTo(sistebrukere);
+                if(data[i].type == "arrive"){
+                  $('<li/>', {'id': "listitem" + data[i].id, 'class': 'list-group-item list-group-item-success clearfix', 'text': data[i].name}).appendTo(sistebrukere);
+                }else{
+                  $('<li/>', {'id': "listitem" + data[i].id, 'class': 'list-group-item list-group-item-info clearfix', 'text': data[i].name}).appendTo(sistebrukere);
+                }
                 $('<span/>', {'id': 'span' + data[i].id,'class': 'pull-right'}).appendTo('#listitem' + data[i].id);
                 var limain = $('#span' + data[i].id);
 
