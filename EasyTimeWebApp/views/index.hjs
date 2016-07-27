@@ -76,13 +76,13 @@
             <div class="scaling panel-body panel-collapse collapse in " id="panelstatistikk">
 
               <div class="col-md-3">
-                <a href="" class="thumbnail">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Microsoft_Excel_2013_logo.svg/110px-Microsoft_Excel_2013_logo.svg.png" />
+                <a href="" class="thumbnail" style="height: 60px; width: 60px;">
+                  <img src="/images/logo.png" />
                 </a>
 
               </div>
 
-              <div class="col-md-2"><label class="label label-info">EasyTime Desktop er koplet til databasen og kjører</label><br></div>
+              <div class="col-md-2"><label class="label label-info">EasyTime Desktop er koplet til databasen</label><br></div>
 
               <br><br><br> 
 

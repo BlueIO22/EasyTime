@@ -7,7 +7,7 @@ var mysql = require('mysql');
 var router = express.Router();
 var app = express();
 var server = require('http').Server(app);
-
+var Excel = require('exceljs');
 var io = require('socket.io')(server);
 
 
@@ -93,13 +93,13 @@ connection.query('USE demo');
     var person = obj.text;
     console.log(obj);
     var personer = [];
-    connection.query("select * from registrations", function(err, rows, fields){
+    connection.query("select * from users", function(err, rows, fields){
        if(err){
             throw err;
         }else{
              if(rows.length != 0){ 
                   for(var i = 0; i<rows.length; i++){
-                  var navn = rows[i].fornavn + ' ' + rows[i].etternavn;
+                  var navn = rows[i].firstname + ' ' + rows[i].lastname;
                       personer.push({name: navn});
                   }
          
@@ -112,6 +112,50 @@ connection.query('USE demo');
     });
 
  });
+
+router.get('/getExcelFile', function(req, res){
+  var book = new Excel.Workbook();
+  book.creator = "EasyTime";
+  var sheet = book.addWorksheet('Timeregistrering August');
+  sheet.columns = [
+      { header: 'Tid', key: 'time', width:10},
+      { header: 'Bruker', key: 'user', width:32},
+      { header: 'Dato', key: 'date', width: 10, outline: 1}
+
+  ];
+
+  sheet.addRow({time: '12:30', user: 'Marius Sørenes', date: '27.07.2016'});
+
+  book.xlsx.writeFile('demo.xlsx').then(function(){
+
+  });
+});
+
+router.post('/getExcelFile', function(req, res){
+    var book = new Excel.Workbook();
+  book.creator = "EasyTime";
+  var sheet = book.addWorksheet('Timeregistrering August');
+  sheet.columns = [
+      { header: 'Tid', key: 'time', width:10},
+      { header: 'Bruker', key: 'user', width:32},
+      { header: 'Dato', key: 'date', width: 10, outline: 1}
+
+  ];
+ 
+    connection.query('select * from registrations', function(err, rows, fields){
+       if(rows.length !=0){
+        for(i = 0; i<rows.length; i++){
+           sheet.addRow({time: rows[i].time, user: rows[i].name, date: rows[i].date});
+        }
+      }
+
+    });
+
+     book.xlsx.writeFile('demo.xlsx').then(function(){
+
+  });
+
+});
 
 router.post('/getSistebrukere', function(req, res){
   

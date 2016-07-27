@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var session;
 var routes = require('./routes/login');
 var index = require('./routes/index');
+var easytimeexcel = require('./routes/easytimeexcel');
 var app = express();
    
 // view engine setup
@@ -29,7 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/index', index);
- 
+app.use('/easytimeexcel', easytimeexcel);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

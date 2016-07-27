@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<<html>
-<head>
-	<title>{{title}}</title>
-</head>
-<body>
-	<nav class="navbar navbar-default navbar-fixed-top">
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'/>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
@@ -14,26 +15,105 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="">{{name}}</a>
+      <a class="navbar-brand" href="#">{{name}}</a>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        {{#links}}
-        <li><a href={{url}}>{{name}}</a></li>
-        {{/links}}
-      </ul>
+       
        
       <ul class="nav navbar-nav navbar-right">
       
-           <li><button id="logout" class="btn btn-warning navbar-btn">Logg ut</button></li> 
-            
+           <li><button id="logout" class="btn btn-info navbar-btn">Informasjon</button></li> 
+              
           </ul>
         
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>
-</body>
+
+
+    <div class="container-fluid"><h1>{{ title }}</h1>
+    <p>Velkommen til {{ title }}</p>
+    <p>Bedrift: {{bedrift}}</p>
+    </div>
+    
+       
+        <div class="container-fluid">
+          <div class="alert alert-danger" style="width: 300px;" id="alert1" role="alert">Brukernavn og Passord er feil!</div>
+
+   <div class="form-group"><input type="text" id="username" style="width: 300px;" class="form-control" placeholder="Brukernavn..." /> </div> 
+    <div class="form-group"><input type="password" id="password" style="width: 300px;" class="form-control" placeholder="Passord..."/> </div>
+    <button class="btn btn-default"  align="right" id="loginButton">Login</button> 
+  </div></div> 
+    </body>
+  
+  <!-- JQuery og Bootstrap.js skal her: -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <!-- Egne script skal her, nb prøv og sett i egne filer. -->
+  <script>
+    $(document).ready(function(){
+      $('#alert1').hide();
+    });
+    $('#username').keyup(function(event){
+      
+      //Enter keypress
+      if(event.keyCode == 13){
+          login();     
+      }
+      
+    });
+    
+    $('#password').keyup(function(event){
+      if(event.keyCode==13){
+        login();
+      }
+    });
+
+    $('#loginButton').click(function(){
+      login();
+    });
+    
+    function login(){
+      //Kjør ajax req 
+
+      if($('#username').val().length > 0 || $('#password').val().length > 0){
+        $.ajax({
+          url: '/tryLogin',
+          type: 'POST',
+          dataType: 'json',
+          data: JSON.stringify({username: $('#username').val(), password: $('#password').val() }),
+          contentType: "application/json; charset=utf-8",
+          success: function(data){
+                            $('#alert1').hide();
+
+              console.log(data.response);
+              $('#status').html(data.response);
+              if(data.std == 'OK'){
+                document.location.href = data.url;
+              }else{
+                $("#alert1").text('Feil brukernavn eller passord');
+                 $("#alert1").show();
+                $("#alert1").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#alert1").hide();
+                });
+              }
+              
+          }
+          
+        });
+        $('#password').val('');
+        $('#username').val('');   
+      }else{
+         $("#alert1").show();
+        $("#alert1").text('Du må skrive inn brukernavn og passord');
+        $("#alert1").fadeTo(2000, 500).slideUp(500, function(){
+                    
+                    $("#alert1").hide();
+                });
+      }
+    }
+  </script>
 </html>

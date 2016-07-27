@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'/>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">{{name}}</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+       
+       
+      <ul class="nav navbar-nav navbar-right">
+      
+           <li><button id="logout" class="btn btn-info navbar-btn">Informasjon</button></li> 
+              
+          </ul>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<br>
+     <div class="container">
+       <div class="jumbotron">
+         <div class="container-fluid">
+         <h1>Excel fil er klar!</h1>
+         <p><b>Bedrift</b>: {{bedrift}}</p>
+         <p>For og laste ned trenger du Microsoft Excel 2007 og oppover, har du tidligere excel versjon?  trykk <i>her</i></p>
+           <br><p align="center"><a class="btn btn-success btn-lg" href="#" role="button"><img align="left" src="https://lh3.ggpht.com/GkNfqm17WFuzaIR87_oz690ErF63hL08Ngj73QtDxyWlCOF80d2gWd2GHrPLJJ-YmHYS=w300" height="25px">  	&nbsp;Last ned</a></p>
+       </div></div> 
+     </div>
+    
+       
+         
+ 
+    </body>
+  
+  <!-- JQuery og Bootstrap.js skal her: -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <!-- Egne script skal her, nb prøv og sett i egne filer. -->
+  <script>
+    
+  </script>
+</html>

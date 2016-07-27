@@ -7,8 +7,8 @@
 
 		
 			"links":[{
-				"name": "Brukere",
-				"url": "/brukere"
+				"name": "Excel",
+				"url": "/easytimeexcel"
 			}, {
 				"name":"Instillinger",
 				"url": "/instillinger"
