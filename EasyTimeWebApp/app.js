@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
- 
+
 app.use(sessions({
   secret: 'dlwadwikpaipPWDLÆaddw',
   saveUnitialized: true,

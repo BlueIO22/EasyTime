@@ -421,30 +421,23 @@
                 }
               });
 
-          var data = [
-                  {
-                    name: 'Marius Sørenes',
-                    text: ['Tid: 09.03-14.00', 'Tid: 08.00-12.03', 'Tid: 12.03-15.00'],
-                    x: ['13.06.2016','14.06.2016','15.06.2016'],
-                    y: [5,4,3],
-                    type: 'scatter'
-                  
-                  },
-                  {
-                    name: 'Johannes Steinsbø',
-                    text: ['Tid: 09.03-10.00', 'Tid: 12.00-14.03', 'Tid: 14.03-18.00'],
-                    x: ['13.06.2016','14.06.2016','15.06.2016'],
-                    y: [1,2,4],
-                    type: 'scatter'
-                  }
-                ];
+              
+              
+               $.ajax({
+                 url: 'index/getTimeAndDates',
+                 type: 'POST', 
+                 success: function(val){
+                     
+                    var layout = {title: 'EasyTime - Graf', yaxis: {title: 'Antall timer'}, xaxis: {title: 'Dato'}};
 
-                var layout = {title: 'EasyTime - Graf', yaxis: {title: 'Antall timer'}, xaxis: {title: 'Dato'}};
+                    Plotly.newPlot('graf', val, layout,
+                      {displayModeBar: false}
+                      );
 
-                Plotly.newPlot('graf', data, layout,
-                  {displayModeBar: false}
-                  );
+                 }                 
+               });
 
+                
                   //{modeBarButtonsToRemove: ['sendDataToCloud','hoverCompareCartesian', 'zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'autoScale2d', 'resetScale2d','hoverClosestCartesian','hoverCompareCartesian']}
         });
         

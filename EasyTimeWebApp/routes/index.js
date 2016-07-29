@@ -88,6 +88,31 @@ connection.query('USE demo');
  
  });
 
+ router.post("/getTimeAndDates", function(req, res){
+    var personer = []; 
+    connection.query("select * from registrations", function(err, rows, fields){
+        if(err){
+          throw err
+        }else{
+           if(rows.length != 0){
+              for(var i = 0; i<rows.length; i++){
+                console.log(rows[i].name);
+                 personer.push({
+                   name: rows[i].name,
+                   text: rows[i].time,
+                   x: [rows[i].date],
+                   y: [i],
+                   type: 'scatter' 
+                });
+              }
+              res.send(personer);
+           }
+        }
+    }); 
+    console.log(personer);
+    
+ });
+
  router.post('/getBrukere', function(req, res){
     var obj = req.body;
     var person = obj.text;
@@ -131,31 +156,7 @@ router.get('/getExcelFile', function(req, res){
   });
 });
 
-router.post('/getExcelFile', function(req, res){
-    var book = new Excel.Workbook();
-  book.creator = "EasyTime";
-  var sheet = book.addWorksheet('Timeregistrering August');
-  sheet.columns = [
-      { header: 'Tid', key: 'time', width:10},
-      { header: 'Bruker', key: 'user', width:32},
-      { header: 'Dato', key: 'date', width: 10, outline: 1}
 
-  ];
- 
-    connection.query('select * from registrations', function(err, rows, fields){
-       if(rows.length !=0){
-        for(i = 0; i<rows.length; i++){
-           sheet.addRow({time: rows[i].time, user: rows[i].name, date: rows[i].date});
-        }
-      }
-
-    });
-
-     book.xlsx.writeFile('demo.xlsx').then(function(){
-
-  });
-
-});
 
 router.post('/getSistebrukere', function(req, res){
   
