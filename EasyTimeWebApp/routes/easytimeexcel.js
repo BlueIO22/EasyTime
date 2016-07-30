@@ -29,7 +29,7 @@ var path = require('path');
 		
 	});
 
-	connection.query('USE users');
+	connection.query('USE demo');
 	
 router.post('/getExcelFile', function(req, res){
     var book = new Excel.Workbook();
@@ -46,7 +46,7 @@ router.post('/getExcelFile', function(req, res){
        if(rows.length !=0){
 			for(i = 0; i<rows.length; i++){
 				console.log(rows[i].time + "\n" + rows[i].name);	
-				sheet.addRow({time: rows[i].time, user: rows[i].name, date: rows[i].date});
+				sheet.addRow({time: rows[i].time, user: rows[i].firstname + " " + rows[i].lastname, date: rows[i].date});
 			}
 			book.xlsx.writeFile("public/files/marinaden.xlsx").then(function(){
 		 	 res.send({name:"http://localhost:3000/files/marinaden.xlsx"});

@@ -90,27 +90,53 @@ connection.query('USE demo');
 
  router.post("/getTimeAndDates", function(req, res){
     var personer = []; 
+
     connection.query("select * from registrations", function(err, rows, fields){
+        
         if(err){
           throw err
         }else{
            if(rows.length != 0){
               for(var i = 0; i<rows.length; i++){
-                console.log(rows[i].name);
-                 personer.push({
-                   name: rows[i].name,
-                   text: rows[i].time,
-                   x: [rows[i].date],
-                   y: [i],
-                   type: 'scatter' 
+                //Getting arrive or leave depending on username
+                var hours = 0;
+                connection.query("select * from registrations where firstname='" + rows[i].firstname + "' and lastname='" + rows[i].lastname + "' ORDER BY id DESC LIMIT 2", function(erre, row, fieldse){
+                      var arrive = 0;
+                      var leave = 0;
+                      if(row.length>=2){
+                         arrive = row[0].timestamp;
+                         leave = row[1].timestamp;
+
+                          var arriveDate = new Date(arrive*1000);
+                          var leaveDate = new Date(leave*1000);
+
+                          console.log(row[0].firstname + " Arrive: " + arrive + "\nLeave: " + leave);
+                          var diff = Math.abs(arriveDate.getTime() - leaveDate.getTime()) / 3600000;
+                      }
+                     
+
+                      //DO the calc
+                      
+                       personer.push({
+                          name: row[0].firstname + " " + row[0].lastname,
+                          text: row[0].time,
+                          x: [row[0].date],
+                          y: [diff],
+                          type: 'scatter' 
+                       });
                 });
+           
               }
-              res.send(personer);
-           }
+              }
         }
     }); 
     console.log(personer);
-    
+    while(personer != null){
+    res.send(personer);
+
+
+    }
+
  });
 
  router.post('/getBrukere', function(req, res){
@@ -118,7 +144,7 @@ connection.query('USE demo');
     var person = obj.text;
     console.log(obj);
     var personer = [];
-    connection.query("select * from users", function(err, rows, fields){
+    connection.query("select * from registrations", function(err, rows, fields){
        if(err){
             throw err;
         }else{
