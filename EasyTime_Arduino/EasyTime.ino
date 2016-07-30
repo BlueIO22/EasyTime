@@ -1,5 +1,5 @@
 /*
- * EASYTIME v1.1 - ARDUINO CODE (Using the MFRC522 module)
+ * EASYTIME v1.15 - ARDUINO CODE (Using the MFRC522 module)
  * 
  * Typical pin layout used:
  * -----------------------------------------------------------------------------------------
@@ -19,6 +19,7 @@
 
 #define SS_PIN 10
 #define RST_PIN 9
+#define SPK_PIN 8
  
 MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the class
 
@@ -31,7 +32,8 @@ void setup() {
   Serial.begin(9600);
   SPI.begin(); // Init SPI bus
   rfid.PCD_Init(); // Init MFRC522 
-
+  pinMode(SPK_PIN, OUTPUT); // Init speaker
+  
   for (byte i = 0; i < 6; i++) {
     key.keyByte[i] = 0xFF;
   }
@@ -61,7 +63,12 @@ void loop() {
 
   printHex(rfid.uid.uidByte, rfid.uid.size);
   Serial.println();
-
+  
+  digitalWrite(SPK_PIN, HIGH);
+  delay(160);
+  digitalWrite(SPK_PIN, LOW);
+  delay(160);
+  
   // Halt PICC
   rfid.PICC_HaltA();
 
