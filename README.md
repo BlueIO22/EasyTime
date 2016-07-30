@@ -1,2 +1,2 @@
 # EasyTime
-Programvare for timeregistrering ved nfc kommunikasjon
+Programvare for timeregistrering ved hjelp av RFID.
