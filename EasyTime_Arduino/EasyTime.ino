@@ -1,5 +1,5 @@
 /*
- * EASYTIME v1.0 - ARDUINO CODE (Using the MFRC522 module)
+ * EASYTIME v1.1 - ARDUINO CODE (Using the MFRC522 module)
  * 
  * Typical pin layout used:
  * -----------------------------------------------------------------------------------------
@@ -36,7 +36,6 @@ void setup() {
     key.keyByte[i] = 0xFF;
   }
 
-  Serial.println(F("REGTIME"));
 }
  
 void loop() {
